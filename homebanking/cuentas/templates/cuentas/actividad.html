@@ -1,0 +1,33 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'cuentas/css/actividad.css' %}">
+
+<div class="home-content">
+    <div class="contenedor-movimientos">
+            <div class="movimientos">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operacion</th>
+                            <th>Tipo de Operacion</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in transactions %}
+                        <tr>
+                            <td>{{x.reason}}</td>
+                            <td>{{x.operation_type}}</td>
+                            <td>{{x.status}}</td>
+                            <td>{{x.date}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,261 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.contenedor {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.signin {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 75%;
+  width: 50%;
+  z-index: 10;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 5rem;
+  overflow: hidden;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.form-group {
+  max-width: 400px;
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 55px;
+  padding: 0 0.4rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-left: 1rem
+}
+
+.form-group input {
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 1rem;
+}
+
+#figure-logo {
+  width: 25%;
+}
+
+#figure-logo img {
+  width: 100%;
+}
+
+.btn {
+  margin-top: .8rem;
+  width: 250px;
+  outline: none;
+  padding: .8rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.signin .btn {
+  border: 1px solid #02568a;
+}
+
+.signin .btn:hover,
+form .btn:focus {
+  border: 2px solid #02568a;
+  padding: .789rem;
+}
+
+.a-mobile {
+  display: none;
+}
+
+.panels-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.panels-container .btn {
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.panels-container .btn:hover,
+.panels-container .btn:focus {
+  border: 2px solid #fff;
+  padding: .789rem;
+}
+
+.contenedor:before {
+  content: "";
+  position: absolute;
+  height: 2200px;
+  width: 2000px;
+  top: 0;
+  right: 44%;
+  transform: translateY(-50%);
+  background-color: #909cc2;
+  border-radius: 50%;
+  z-index: 6;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 6;
+}
+
+.panel p {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+@media (max-width: 570px) {
+  .signin {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form {
+    padding: 0 1.5rem;
+  }
+
+  .panels-container {
+    display: none;
+  }
+
+  #figure-logo {
+    width: 50%;
+  }
+
+  .a-mobile {
+    display: block;
+    margin: 1.4rem auto;
+  }
+
+  .contenedor:before {
+    display: none;
+  }
+}
+
+@media (max-width: 870px) {
+  .container {
+    min-height: 800px;
+    height: 100vh;
+  }
+
+  .signin {
+    width: 100%;
+    top: 95%;
+    transform: translate(-50%, -100%);
+    /* transition: 1s 0.8s ease-in-out; */
+  }
+
+  .signin,
+  .container.sign-up-mode .signin {
+    left: 50%;
+  }
+
+  .panels-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+  }
+
+  .panel {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2.5rem 8%;
+    grid-column: 1 / 2;
+  }
+
+  .right-panel {
+    grid-row: 3 / 4;
+  }
+
+  .left-panel {
+    grid-row: 1 / 2;
+  }
+
+  .panel .content {
+    padding-right: 15%;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.8s;
+  }
+
+  .panel p {
+    font-size: 1.2rem;
+  }
+
+  .container:before {
+    width: 1500px;
+    height: 1500px;
+    transform: translateX(-50%);
+    left: 30%;
+    bottom: 68%;
+    right: initial;
+    top: initial;
+    transition: 2s ease-in-out;
+  }
+
+  .container.sign-up-mode:before {
+    transform: translate(-50%, 100%);
+    bottom: 32%;
+    right: initial;
+  }
+
+  .container.sign-up-mode .left-panel .image,
+  .container.sign-up-mode .left-panel .content {
+    transform: translateY(-300px);
+  }
+
+  .container.sign-up-mode .right-panel .image,
+  .container.sign-up-mode .right-panel .content {
+    transform: translateY(0px);
+  }
+
+  .right-panel .image,
+  .right-panel .content {
+    transform: translateY(300px);
+  }
+
+  .container.sign-up-mode .signin {
+    top: 5%;
+    transform: translate(-50%, 0);
+  }
+}

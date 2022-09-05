@@ -1,0 +1,19 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'cuentas/css/transferencias.css'%}">
+
+<div class="home-content">
+    <section class="transferencias">
+        <div class="contenedor-form">
+        <h2>Enviar Dinero</h2>
+        <form action="" method="POST">
+            {%csrf_token%}
+            {{form}}
+            <button type="submit" class="btn">Enviar</button>
+        </form>
+        </div>
+    </section>
+    </div>
+</div>
+{% endblock %}

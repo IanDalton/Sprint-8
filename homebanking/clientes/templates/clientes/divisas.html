@@ -1,0 +1,22 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'clientes/css/divisas.css'  %}">
+
+<div class="home-content">
+    <section class="contenedor-divisas">
+    <h2>Cotizacion de Divisas</h2>
+      <section>
+        <table>
+          <thead id="head">
+          </thead>
+          <tbody id="data">
+          </tbody>
+        </table>
+      </section>
+    </section>
+  <script src="{% static 'clientes/js/divisas.js' %}"></script>
+
+</html>
+</div>
+{% endblock %}

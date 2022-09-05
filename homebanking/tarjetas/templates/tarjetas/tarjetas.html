@@ -1,0 +1,44 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'tarjetas/css/tarjetas.css' %' %}">
+
+
+<div class="home-content">
+    <section class="contenedor-tarjetas">
+        <div class="tarjetas">
+            <div class="card">
+                <div class="card__inner">
+                    <div class="front">
+                        <div class="row">
+                            <img src="{% static 'tarjetas/images/chip.png' %}" class="card__chip" alt="">
+                            <img src="{% static 'registration/images/logo_itbank.png' %}" class="card__logo" alt="">
+                        </div>
+                        <div class="row card__num">
+                            <p>1234</p>
+                            <p>5678</p>
+                            <p>9876</p>
+                            <p>5000</p>
+                        </div>
+                        <div class="row card__name">
+                            <p>{{user.username}}</p>
+                            <p> 10/26</p>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="barra"></div>
+                        <div class="row card__cvv">
+                            <figure>
+                                <img src="{% static 'tarjetas/images/pattern.png' %}" class="" alt="">
+                            </figure>
+                            <p>748</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</div>
+{% endblock %}

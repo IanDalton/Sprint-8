@@ -1,0 +1,204 @@
+.sales-boxes {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.top-sales-flex {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 20px;
+  margin-top: 0;
+}
+
+.top-sales {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.fondos, .botones {
+  width: 49%;
+  height: 160px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.balance {
+  font-size: 2rem;
+}
+
+.button {
+  width: 250px;
+  height: 50px;
+  color: #0A2558;
+  display: grid;
+  place-items: center;
+  border: 1px solid #0A2558;
+  font-size: .85rem;
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.button:hover {
+  border: 2px solid #0A2558;
+}
+
+/* Tabla de movimientos */
+
+.movimientos {
+  width: 100%;
+  background: #fff;
+  padding: 20px 30px;
+  margin: 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movimientos h2 {
+  text-align: center;
+}
+
+.movimientos table {
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: box-shadow 300ms ease;
+  margin: 1.2rem 0;
+}
+
+.movimientos table:hover {
+  box-shadow: none;
+}
+
+.movimientos table tbody td {
+  height: 3rem;
+  border-bottom: 1px solid var(--color-light);
+}
+
+.movimientos table tbody td i {
+  border-radius: 20px;
+  padding: .4rem;
+}
+
+.movimientos table tbody tr:last-child td {
+  border: none;
+}
+
+.container-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.movimientos .button {
+  width: 200px;
+}
+
+/* novedades */
+
+.right-side h2 {
+  text-align: center;
+}
+
+.novedad {
+  display: grid;
+  grid-template-columns: 2.6rem auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-light);
+}
+
+/* seccion divisas */
+
+#extra-info {
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#extra-info .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+#extra-info .box-topic {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.home-content .box .number {
+  display: inline-block;
+  font-size: 35px;
+  margin-top: -6px;
+  font-weight: 500;
+}
+
+.home-content .box .indicator {
+  display: flex;
+  align-items: center;
+}
+
+.home-content .box .indicator i {
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.home-content .box .indicator .text {
+  font-size: 12px;
+}
+
+.home-content .box .money {
+  display: inline-block;
+  font-size: 32px;
+  height: 50px;
+  width: 50px;
+  background: #ccffcf;
+  line-height: 50px;
+  text-align: center;
+  color: #0b641a;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.positivo {
+  color: green;
+}
+
+.negativo {
+  color: red;
+}

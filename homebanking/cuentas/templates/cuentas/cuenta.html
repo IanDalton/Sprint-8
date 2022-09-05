@@ -1,0 +1,54 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'cuentas/css/cuenta.css' %}">
+
+<div class="home-content">
+  <div class="sales-boxes">
+    <div class="top-sales-flex">
+      <div class="top-sales box">
+        <div class="fondos">
+          <h2>Dinero Disponible</h2>
+          <p class="balance">${{cash.balance}}</p>
+        </div>
+        <div class="botones">
+          <a class="button" href="{% url 'cuentas:perfil' %}">Ingresar dinero</a>
+          <a class="button" href="{% url 'cuentas:transferencia' %}">Transferir dinero</a>
+        </div>
+      </div>
+    </div>
+    <div class="movimientos">
+      <h2>Movimientos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Monto</th>
+            <th>Operacion</th>
+            <th>Tipo de Operacion</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in transactions %}
+          <tr>
+            <td>{{x.amount}}</td>
+            <td>{{x.reason}}</td>
+            <td>{{x.operation_type}}</td>
+            <td>{{x.status}}</td>
+            <td>{{x.date}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div>
+        <a class="button" href="{% url 'cuentas:actividad' %}">Ver más</a>
+      </div>
+    </div>
+  </div>
+  <div id="extra-info">
+  </div>
+</div>
+<script src="{% static 'cuentas/js/extraInfo.js' %}"></script>
+{% endblock %}

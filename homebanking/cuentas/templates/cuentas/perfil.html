@@ -1,0 +1,36 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'cuentas/css/perfil.css' %}">
+
+<div class="home-content">
+        <section class="contenedor-perfil">
+            <div class="contenedor-alias">
+            <h2>Perfil</h2>
+                <div class="copy-text">
+                    <div>
+                        <small>Alias</small>
+                        <input type="text" readonly class="text" value="{{ user.username }}">
+                    </div>
+                    <button>
+                        <i class='bx bx-copy'></i>
+                    </button>
+                </div>
+                <a href="{% url 'tarjetas:tarjetas' %}" class="">
+                    Tarjetas
+                    <button>
+                        <i class='bx bx-chevron-right'></i>
+                    </button>
+                </a>
+                <!-- <a href="#" class="">
+                    Direcciones
+                    <button>
+                        <i class='bx bx-chevron-right'></i>
+                    </button>
+                </a> -->
+            </div>
+        </section>
+</div>
+<script src="{% static 'cuentas/js/perfil.js' %}"></script>
+{% endblock %}

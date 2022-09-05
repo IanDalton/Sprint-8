@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/clientes/css/index.css">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'clientes/css/index.css' %}">
+    <script src="https://kit.fontawesome.com/a8edf64d36.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <a href="">
+            <figure id="figure-logo">
+                <img src="{% static 'registration/images/logo_itbank.png' %}" alt="">
+            </figure>
+        </a>
+        <div class="buttons">
+            {% if user.is_authenticated %}
+            <a href="{% url 'cuentas:cuenta' %}" class="btn btn-outline-primary">Ver Cuenta</a>
+            <a href="{% url 'logout' %}" class="btn btn-primary">Cerrar Sesión</a>
+            {%else%}
+            <a href="{% url 'login' %}" class="btn btn-outline-primary">Iniciar sesión</a>
+            <a href="{% url 'registration:signup' %}" class="btn btn-primary">Abrir cuenta</a>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        <section class="banner">
+            <h1>Bienvenido/a a Itbank!</h1>
+        </section>
+        <section class="divisas">
+            <div class="divisas__card" id="divisas">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="divisa">
+                            <h3>Dolar Oficial</h3>
+                        </div>
+                        <div class="compra-venta">
+                            <p>Compra:<span></span></p>
+                            <p>Venta:<span></span></p>
+                        </div>
+                        <div class="variacion">
+                            <p>Variacion:<span></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="divisa">
+                            <h3>Dolar Blue</h3>
+                        </div>
+                        <div class="compra-venta">
+                            <p>Compra:<span></span></p>
+                            <p>Venta:<span></span></p>
+                        </div>
+                        <div class="variacion">
+                            <p>Variacion:<span></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="divisa">
+                            <h3>Dolar Bolsa</h3>
+                        </div>
+                        <div class="compra-venta">
+                            <p>Compra:<span></span></p>
+                            <p>Venta:<span></span></p>
+                        </div>
+                        <div class="variacion">
+                            <p>Variacion:<span></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mas">
+                    <a href="{% url 'clientes:divisas' %}" title="Ver más divisas"><i class="bi bi-plus-circle"></i>
+                        <small>Ver más</small>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="servicios">
+            <div>
+                <span><i class="bi bi-arrow-left-right"></i></span>
+                <h4>Transferencias</h4>
+                <p>Enviá y recibí plata desde cualquier cuenta bancaria y/o virtual, gratis y en el acto.</p>
+                <a href="">Ver más</a>
+            </div>
+            <div>
+                <span><i class="bi bi-credit-card-2-front"></i></span>
+                <h4>Tarjetas</h4>
+                <p>Aprovechá tu tarjeta Itbanky comprá en cualquier comercio o página web del mundo.</p>
+                <a href="">Ver más</a>
+            </div>
+            <div>
+                <span><i class="bi bi-cash-stack"></i></span>
+                <h4>Prestamos</h4>
+                <p>Para lo que necesites, de la forma más fácil, rápida y transparente.</p>
+                <a href="">ver más</a>
+            </div>
+        </section>
+        <section id="ayuda">
+            <h4>Atención 100% online</h4>
+            <a href="{% url 'clientes:ayuda' %}" class="btn btn-primary">¿En que podemos ayudarte?</a>
+            <p>Línea para Clientes: 0800-000-0000</p>
+        </section>
+    </main>
+    <footer>
+        <div>
+            <p>© 2022 Banco Itbank Argentina. Todos los derechos reservados.</p>
+        </div>
+        <div>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href=""><i class="bi bi-twitter"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'clientes/js/dolar.js' %}"></script>
+</body>
+
+</html>
