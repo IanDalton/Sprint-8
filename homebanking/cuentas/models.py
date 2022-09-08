@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser
 class Cliente(models.Model):
     customer_id = models.AutoField(primary_key=True)
     customer_username = models.OneToOneField(
-        'auth.User',models.CASCADE, null=True, blank=True, default=int(customer_id))
+        'auth.User',models.CASCADE, null=True, blank=True)
     customer_name = models.TextField()
     customer_surname = models.TextField()
     customer_dni = models.TextField(db_column='customer_DNI', unique=True)
