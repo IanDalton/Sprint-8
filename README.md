@@ -13,7 +13,14 @@
 1. Activar el entorno virtual
     -   Windows: env/Scripts/activate
     -   Mac: source env/bin/activate
-
+2. En caso de crear un nuevo entorno virtual, en Lib/rest_framework/permissions.py
+   Insertar 
+   
+   class Sologet(BasePermission):
+    def has_permission(self, request, view):
+        return bool(
+            request.method in SAFE_METHODS)
+            
 ## Autores del Proyecto
 
 - Ian Dalton
