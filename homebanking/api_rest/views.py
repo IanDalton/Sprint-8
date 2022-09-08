@@ -10,8 +10,13 @@ from rest_framework import permissions
 # Create your views here.
 
 class CuentaViewSet(viewsets.ModelViewSet):
-    queryset = Cuenta.objects.all()
     serializer_class = CuentaSerializer
+    permission_classes = [permissions.Sologet]
+
+    def get_queryset(self, *args, **kwargs):
+        current_user = self.request.user
+        datoscuenta = Cuenta.objects.filter(customer_id=current_user.id)
+        return datoscuenta
 
 class DireccionViewSet(viewsets.ModelViewSet):
     queryset = Direccion.objects.all()
@@ -19,21 +24,12 @@ class DireccionViewSet(viewsets.ModelViewSet):
 
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.Sologet]
 
     def get_queryset(self, *args, **kwargs):
         current_user = self.request.user
-        """
-        if current_user is Empleado
-            permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-            datoscliente = Cliente.objects.filter(customer_id=current_user.id)
-            return datoscliente
-        else
-        """
-        if current_user == Cliente:
-            permission_classes = [permissions.AllowAny]
-            datoscliente = Cliente.objects.filter(customer_id=current_user.id)
-            return datoscliente
+        datoscliente = Cliente.objects.filter(customer_id=current_user.id)
+        return datoscliente
 
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
     queryset = AuditoriaCuenta.objects.all()    
@@ -64,8 +60,16 @@ class TipoCuentaViewSet(viewsets.ModelViewSet):
     serializer_class = TipoCuentaSerializer
 
 class PrestamoViewSet(viewsets.ModelViewSet):
-    queryset = Prestamo.objects.all()
     serializer_class = PrestamoSerializer
+    permission_classes = [permissions.Sologet]
+
+    def get_queryset(self, *args, **kwargs):
+        current_user = self.request.user
+        datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
+        return datosprestamo
+    
+    
+
 
 class TarjetaViewSet(viewsets.ModelViewSet):
     queryset = Tarjeta.objects.all()
