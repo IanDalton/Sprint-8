@@ -6,6 +6,7 @@ from cuentas.models import Cuenta, Direccion, Cliente, AuditoriaCuenta, Sucursal
 #from django.contrib.auth.models import User
 #from rest_framework.views import APIView
 from rest_framework import permissions
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -65,10 +66,20 @@ class PrestamoViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         current_user = self.request.user
-        datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
+        if current_user.is_staff == False:  
+            datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
+        if current_user.is_staff == True:
+            datosprestamo = Prestamo.objects.all()
+
         return datosprestamo
     
-    
+    def retrieve(self, request, *args, **kwargs):
+        parametro = kwargs
+        sucursalquery = Sucursal.objects.all().filter(branch_id =parametro['pk'])
+        clientequery = Cliente.objects.all().filter(branch_id = sucursalquery[branch_id])
+        prestamoquery = Prestamo.objects.filter(customer_id = clientequery.customer_id)
+        serializer = PrestamoSerializer(prestamoquery, many = True)
+        return Response(serializer.data)
 
 
 class TarjetaViewSet(viewsets.ModelViewSet):
