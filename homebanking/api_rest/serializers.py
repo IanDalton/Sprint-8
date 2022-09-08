@@ -16,7 +16,7 @@ class CuentaSerializer(serializers.ModelSerializer):
 class PrestamoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prestamo
-        fields = ('loan_id', 'loan_type', 'loan_date', 'loan_total', 'customer_id')
+        fields = ('loan_id', 'loan_type', 'loan_date', 'loan_total', 'customer_id','branch')
 
 class MovimientosSerializer(serializers.ModelSerializer):
     class Meta:

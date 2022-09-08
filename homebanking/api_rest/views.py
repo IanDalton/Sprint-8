@@ -71,15 +71,15 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
         if current_user.is_staff == True:
             datosprestamo = Prestamo.objects.all()
+
         return datosprestamo
     
     def retrieve(self, request, *args, **kwargs):
         parametro = kwargs
-        for query in Prestamo.objects.filter(branch_id = parametro['pk']):
-            prestamoquery = Prestamo.objects.all().aggregate()
-            serializer = PrestamoSerializer(prestamoquery, many=True)
-            return Response(serializer.data,status=status.HTTP_200_OK)
-
+        prestamoquery = Prestamo.objects.filter(branch_id = parametro['pk'])
+        serializer = PrestamoSerializer(prestamoquery, many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)   
+        
 
 
 class TarjetaViewSet(viewsets.ModelViewSet):
