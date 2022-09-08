@@ -1,3 +1,4 @@
+from multiprocessing.connection import Client
 from rest_framework import viewsets
 from .serializers import TarjetaSerializer, MarcasTarjetaSerializer, CuentaSerializer, DireccionSerializer, ClienteSerializer, AuditoriaCuentaSerializer, SucursalSerializer, DireccionClienteSerializer, EmpleadoSerializer, MovimientosSerializer, TipoClienteSerializer, TipoCuentaSerializer, PrestamoSerializer
 from tarjetas.models import Tarjeta, MarcasTarjeta
@@ -7,7 +8,7 @@ from cuentas.models import Cuenta, Direccion, Cliente, AuditoriaCuenta, Sucursal
 #from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework.response import Response
-
+from rest_framework import status
 # Create your views here.
 
 class CuentaViewSet(viewsets.ModelViewSet):
@@ -70,16 +71,15 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
         if current_user.is_staff == True:
             datosprestamo = Prestamo.objects.all()
-
         return datosprestamo
     
     def retrieve(self, request, *args, **kwargs):
         parametro = kwargs
-        sucursalquery = Sucursal.objects.all().filter(branch_id =parametro['pk'])
-        clientequery = Cliente.objects.all().filter(branch_id = sucursalquery[branch_id])
-        prestamoquery = Prestamo.objects.filter(customer_id = clientequery.customer_id)
-        serializer = PrestamoSerializer(prestamoquery, many = True)
-        return Response(serializer.data)
+        for query in Prestamo.objects.filter(branch_id = parametro['pk']):
+            prestamoquery = Prestamo.objects.all().aggregate()
+            serializer = PrestamoSerializer(prestamoquery, many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+
 
 
 class TarjetaViewSet(viewsets.ModelViewSet):
