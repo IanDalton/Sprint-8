@@ -23,6 +23,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         current_user = self.request.user
+        
         return Cliente.objects.filter(customer_id=current_user.id)
 
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
