@@ -23,8 +23,17 @@ class ClienteViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         current_user = self.request.user
-        
-        return Cliente.objects.filter(customer_id=current_user.id)
+        """
+        if current_user is Empleado
+            permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+            datoscliente = Cliente.objects.filter(customer_id=current_user.id)
+            return datoscliente
+        else
+        """
+        if current_user == Cliente:
+            permission_classes = [permissions.AllowAny]
+            datoscliente = Cliente.objects.filter(customer_id=current_user.id)
+            return datoscliente
 
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
     queryset = AuditoriaCuenta.objects.all()    
