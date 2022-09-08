@@ -3,23 +3,20 @@ from tarjetas.models import Tarjeta, MarcasTarjeta
 from prestamos.models import Prestamo
 from cuentas.models import Cuenta, Direccion, Cliente, AuditoriaCuenta, Sucursal, DireccionCliente, Empleado, Movimientos, TipoCliente, TipoCuenta
 
-class ClienteSerializer(serializers.HyperlinkedModelSerializer):
+class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ('customer_id', 'customer_name', 'customer_surname', 'customer_dni', 'dob', 'branch_id')
+        fields = ('customer_id', 'customer_username', 'customer_name', 'customer_surname', 'customer_dni', 'dob', 'branch_id')
 
 class CuentaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Cuenta
         fields = ('account_id', 'customer_id', 'balance', 'iban', 'account_type')
 
-
 class PrestamoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Prestamo
         fields = ('loan_id', 'loan_type', 'loan_date', 'loan_total', 'customer_id')
-
-
 
 class MovimientosSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -30,8 +27,6 @@ class DireccionClienteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DireccionCliente
         fields = ('address_client_id', 'address_type_client')
-
-
 
 class DireccionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

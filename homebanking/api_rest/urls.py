@@ -1,9 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from cuentas.models import Cliente
 from .views import CuentaViewSet, DireccionViewSet, ClienteViewSet, AuditoriaCuentaViewSet, SucursalViewSet, DireccionClienteViewSet, EmpleadoViewSet, MovimientosViewSet, TipoClienteViewSet, TipoCuentaViewSet, PrestamoViewSet, TarjetaViewSet, MarcasTarjetaViewSet
 
 router = DefaultRouter()
-router.register(r'cliente', ClienteViewSet) # Obtener datos de un cliente
+router.register(r'cliente', ClienteViewSet,basename=Cliente) # Obtener datos de un cliente
 router.register(r'cuenta', CuentaViewSet) # Obtener saldo de cuenta de un cliente
 router.register(r'prestamo', PrestamoViewSet) # Obtener monto de un prestamo y total del prestamo
 router.register(r'tarjetas', TarjetaViewSet)

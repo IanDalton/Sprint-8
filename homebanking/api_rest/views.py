@@ -3,6 +3,9 @@ from .serializers import TarjetaSerializer, MarcasTarjetaSerializer, CuentaSeria
 from tarjetas.models import Tarjeta, MarcasTarjeta
 from prestamos.models import Prestamo
 from cuentas.models import Cuenta, Direccion, Cliente, AuditoriaCuenta, Sucursal, DireccionCliente, Empleado, Movimientos, TipoCliente, TipoCuenta
+#from django.contrib.auth.models import User
+#from rest_framework.views import APIView
+from rest_framework import permissions
 
 # Create your views here.
 
@@ -15,11 +18,15 @@ class DireccionViewSet(viewsets.ModelViewSet):
     serializer_class = DireccionSerializer
 
 class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self, *args, **kwargs):
+        current_user = self.request.user
+        return Cliente.objects.filter(customer_id=current_user.id)
 
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
-    queryset = AuditoriaCuenta.objects.all()
+    queryset = AuditoriaCuenta.objects.all()    
     serializer_class = AuditoriaCuentaSerializer
 
 class SucursalViewSet(viewsets.ModelViewSet):
