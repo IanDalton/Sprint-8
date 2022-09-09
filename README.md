@@ -63,3 +63,6 @@ Requiere usuario staff (Empleado)
 si no se declara <PK> y se coloca solo
 http://127.0.0.1:8000/api/tarjeta
 retornara las tarjetas del usuario autenticado en la request
+
+LISTADO DE TODAS LAS SUCURSALES
+http://127.0.0.1:8000/api/sucursal

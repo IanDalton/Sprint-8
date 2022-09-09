@@ -1,5 +1,3 @@
-from http import client
-from multiprocessing.connection import Client
 from rest_framework import viewsets
 from .serializers import TarjetaSerializer, MarcasTarjetaSerializer, CuentaSerializer, DireccionSerializer, ClienteSerializer, AuditoriaCuentaSerializer, SucursalSerializer, DireccionClienteSerializer, EmpleadoSerializer, MovimientosSerializer, TipoClienteSerializer, TipoCuentaSerializer, PrestamoSerializer
 from tarjetas.models import Tarjeta, MarcasTarjeta
@@ -40,8 +38,11 @@ class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
     serializer_class = AuditoriaCuentaSerializer
 
 class SucursalViewSet(viewsets.ModelViewSet):
-    queryset = Sucursal.objects.all()
     serializer_class = SucursalSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        datossucursal = Direccion.objects.all()
+        return datossucursal
 
 class DireccionClienteViewSet(viewsets.ModelViewSet):
     queryset = DireccionCliente.objects.all()
