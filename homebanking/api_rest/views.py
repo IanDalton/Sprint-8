@@ -67,18 +67,19 @@ class PrestamoViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         current_user = self.request.user
-        if current_user.is_staff == False:  
-            datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
-        if current_user.is_staff == True:
-            datosprestamo = Prestamo.objects.all()
+        datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
 
         return datosprestamo
     
     def retrieve(self, request, *args, **kwargs):
-        parametro = kwargs
-        prestamoquery = Prestamo.objects.filter(branch_id = parametro['pk'])
-        serializer = PrestamoSerializer(prestamoquery, many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)   
+        current_user = self.request.user
+        if current_user.is_staff == True:
+            parametro = kwargs
+            prestamoquery = Prestamo.objects.filter(branch_id = parametro['pk'])
+            serializer = PrestamoSerializer(prestamoquery, many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response("El Usuario no posee los permisos para realizar esta consulta",status=status.HTTP_306_RESERVED)
         
 
 
