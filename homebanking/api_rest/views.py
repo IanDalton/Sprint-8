@@ -1,3 +1,4 @@
+from http import client
 from multiprocessing.connection import Client
 from rest_framework import viewsets
 from .serializers import TarjetaSerializer, MarcasTarjetaSerializer, CuentaSerializer, DireccionSerializer, ClienteSerializer, AuditoriaCuentaSerializer, SucursalSerializer, DireccionClienteSerializer, EmpleadoSerializer, MovimientosSerializer, TipoClienteSerializer, TipoCuentaSerializer, PrestamoSerializer
@@ -33,6 +34,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
         datoscliente = Cliente.objects.filter(customer_id=current_user.id)
         return datoscliente
 
+
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
     queryset = AuditoriaCuenta.objects.all()    
     serializer_class = AuditoriaCuentaSerializer
@@ -63,7 +65,6 @@ class TipoCuentaViewSet(viewsets.ModelViewSet):
 
 class PrestamoViewSet(viewsets.ModelViewSet):
     serializer_class = PrestamoSerializer
-    permission_classes = [permissions.Sologet]
 
     def get_queryset(self, *args, **kwargs):
         current_user = self.request.user
@@ -80,12 +81,30 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response("El Usuario no posee los permisos para realizar esta consulta",status=status.HTTP_306_RESERVED)
+    
+
         
 
 
 class TarjetaViewSet(viewsets.ModelViewSet):
-    queryset = Tarjeta.objects.all()
     serializer_class = TarjetaSerializer
+    permission_classes = [permissions.Sologet]
+
+    def get_queryset(self, *args, **kwargs):
+        current_user = self.request.user
+        datostarjeta = Tarjeta.objects.filter(client = current_user.id,)
+
+        return datostarjeta
+
+    def retrieve(self, request, *args, **kwargs):
+        current_user = self.request.user
+        if current_user.is_staff == True:
+            parametro = kwargs
+            tarjetaquery = Tarjeta.objects.filter(client = parametro['pk'])
+            serializer = TarjetaSerializer(tarjetaquery, many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response("El Usuario no posee los permisos para realizar esta consulta",status=status.HTTP_306_RESERVED)
 
 class MarcasTarjetaViewSet(viewsets.ModelViewSet):
     queryset = MarcasTarjeta.objects.all()
