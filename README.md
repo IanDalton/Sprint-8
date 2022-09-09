@@ -39,7 +39,7 @@ pass: passwordrand
 user: Usuario509
 pass: passwordrand
 
-ACCESOS: RequiereN del envio de la request junto con el user y password de un usuario registrado
+ACCESOS: Requieren del envio de la request junto con el user y password de un usuario registrado
 
 OBTENER DATOS DE UN CLIENTE
 http://127.0.0.1:8000/api/cliente/
@@ -56,3 +56,10 @@ http://127.0.0.1:8000/api/prestamo/<PK>
 <PK>: Corresponde al ID de la sucursal de la cual se solicita la request
 Requiere usuario staff (Empleado)
 
+OBTENER TARJETAS ASOCIADAS A UN CLIENTE
+http://127.0.0.1:8000/api/tarjeta/<PK>
+<PK>: Corresponde al ID de la Usuario de la cual se solicita la request
+Requiere usuario staff (Empleado)
+si no se declara <PK> y se coloca solo
+http://127.0.0.1:8000/api/tarjeta
+retornara las tarjetas del usuario autenticado en la request
