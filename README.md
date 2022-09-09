@@ -28,3 +28,31 @@
 - Santiago Ance
 - Ignacio Brandán
 - Cesar Benitez
+
+USUARIOS PARA TESTEO:
+Empleado (staff)
+User: randus
+pass: passwordrand
+Cliente (no-staff)
+user: randus2
+pass: passwordrand
+user: Usuario509
+pass: passwordrand
+
+ACCESOS: RequiereN del envio de la request junto con el user y password de un usuario registrado
+
+OBTENER DATOS DE UN CLIENTE
+http://127.0.0.1:8000/api/cliente/
+
+OBTENER SALDO DE CUENTA DE UN CLIENTE
+http://127.0.0.1:8000/api/cuenta/
+
+OBTENER MONTO DE PRESTAMOS DE UN CLIENTE
+http://127.0.0.1:8000/api/prestamo/
+(el usuario "randus" no tiene prestamos, el usuario randus2 si, el usuario "Usuario509" tambien)
+
+OBTENER MONTO DE PRESTAMOS DE UNA SUCURSAL
+http://127.0.0.1:8000/api/prestamo/<PK>
+<PK>: Corresponde al ID de la sucursal de la cual se solicita la request
+Requiere usuario staff (Empleado)
+
