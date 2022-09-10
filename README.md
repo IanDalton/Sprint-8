@@ -49,7 +49,6 @@ http://127.0.0.1:8000/api/cuenta/
 
 OBTENER MONTO DE PRESTAMOS DE UN CLIENTE
 http://127.0.0.1:8000/api/prestamo/
-(el usuario "randus" no tiene prestamos, el usuario randus2 si, el usuario "Usuario509" tambien)
 
 OBTENER MONTO DE PRESTAMOS DE UNA SUCURSAL
 http://127.0.0.1:8000/api/prestamo/<PK>
@@ -61,8 +60,32 @@ http://127.0.0.1:8000/api/tarjeta/<PK>
 <PK>: Corresponde al ID de la Usuario de la cual se solicita la request
 Requiere usuario staff (Empleado)
 si no se declara <PK> y se coloca solo
-http://127.0.0.1:8000/api/tarjeta
+http://127.0.0.1:8000/api/tarjeta/
 retornara las tarjetas del usuario autenticado en la request
+
+GENERAR UNA SOLICITUD DE PRESTAMO PARA CLIENTE
+http://127.0.0.1:8000/api/prestamo/
+Se debe hacer un metodo POST, detallando en el body
+    {
+        "loan_type": "tipo de prestamo", ---> personal, hipotecario, prendario
+        "loan_date": "2022-09-09", ---> formato AAAA-MM-DD
+        "loan_total": 15000.0, ---> Monto del prestamo
+        "customer_id": 511,---> ID del usuario adjudicatario del prestamo
+        "branch": 10 ---> ID de la sucursal otorgante del prestamo
+    }
+
+ANULAR SOLICITUD DE PRESTAMO DE CLIENTE
+http://127.0.0.1:8000/api/prestamo/<PK>/
+Se debe hacer un metodo DELETE detallando <PK>
+<PK>: Corresponde al ID de la prestamo a eliminar
+
+MODIFICAR DIRECCION DE UN CLIENTE
+http://127.0.0.1:8000/api/direccion/<PK>/
+Se debe hacer un metodo PATCH detallando <PK>
+<PK>: Corresponde al ID del usuario que recibira la modificacion
+si no se declara <PK> y se coloca solo
+http://127.0.0.1:8000/api/direccion/
+retornara la direccion del usuario autenticado en la request
 
 LISTADO DE TODAS LAS SUCURSALES
 http://127.0.0.1:8000/api/sucursal

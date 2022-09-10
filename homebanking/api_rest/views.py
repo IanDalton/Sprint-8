@@ -1,3 +1,4 @@
+from functools import partial
 from rest_framework import viewsets
 from .serializers import TarjetaSerializer, MarcasTarjetaSerializer, CuentaSerializer, DireccionSerializer, ClienteSerializer, AuditoriaCuentaSerializer, SucursalSerializer, DireccionClienteSerializer, EmpleadoSerializer, MovimientosSerializer, TipoClienteSerializer, TipoCuentaSerializer, PrestamoSerializer
 from tarjetas.models import Tarjeta, MarcasTarjeta
@@ -20,24 +21,38 @@ class CuentaViewSet(viewsets.ModelViewSet):
         return datoscuenta
 
 class DireccionViewSet(viewsets.ModelViewSet):
-    queryset = Direccion.objects.all()
     serializer_class = DireccionSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        current_user = self.request.user
+        datoscliente = Direccion.objects.filter(customer_id=current_user.id)
+        return datoscliente
+
+    def partial_update(self, request, *args, **kwargs):
+        parametro = kwargs
+        clientequery = Direccion.objects.get(customer_id = parametro['pk'])
+        """
+        clientequery.address_street = data.get("address_street")
+        clientequery.address_street_number = data.get("address_street_number")
+        clientequery.address_city = data.get("address_city")
+        clientequery.address_country = data.get("address_country")
+        """
+        serializer = DireccionSerializer(clientequery, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
-    permission_classes = [permissions.Sologet]
 
     def get_queryset(self, *args, **kwargs):
         current_user = self.request.user
         datoscliente = Cliente.objects.filter(customer_id=current_user.id)
         return datoscliente
 
-    def partial_update(self, request, *args, **kwargs):
-        parametro = kwargs
-        clientequery = Cliente.objects.get(customer_id = parametro['pk'])
-        serializer = ClienteSerializer(clientequery)
         
-        return 
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
     queryset = AuditoriaCuenta.objects.all()    
     serializer_class = AuditoriaCuentaSerializer
