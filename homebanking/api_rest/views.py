@@ -1,3 +1,4 @@
+import re
 from rest_framework import viewsets
 from .serializers import TarjetaSerializer, MarcasTarjetaSerializer, CuentaSerializer, DireccionSerializer, ClienteSerializer, AuditoriaCuentaSerializer, SucursalSerializer, DireccionClienteSerializer, EmpleadoSerializer, MovimientosSerializer, TipoClienteSerializer, TipoCuentaSerializer, PrestamoSerializer
 from tarjetas.models import Tarjeta, MarcasTarjeta
@@ -31,7 +32,6 @@ class ClienteViewSet(viewsets.ModelViewSet):
         current_user = self.request.user
         datoscliente = Cliente.objects.filter(customer_id=current_user.id)
         return datoscliente
-
 
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
     queryset = AuditoriaCuenta.objects.all()    
@@ -82,6 +82,23 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response("El Usuario no posee los permisos para realizar esta consulta",status=status.HTTP_306_RESERVED)
+
+    def create(self, request, *args, **kwargs):
+        current_user = self.request.user
+        if current_user.is_staff == True:
+            serializer = PrestamoSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()                
+                usuario_id = serializer.data.get('customer_id')
+                monto = serializer.data.get('loan_total')
+                usuario = Cuenta.objects.get(customer = usuario_id)
+                usuario.balance = usuario.balance + monto
+                usuario.save()
+
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response("El Usuario no posee los permisos para realizar esta request",status=status.HTTP_306_RESERVED)
+
     
 
         
