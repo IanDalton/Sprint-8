@@ -110,8 +110,13 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             if serializer.is_valid():
                 serializer.save()                
                 usuario_id = serializer.data.get('customer_id')
+                reason = serializer.data.get('loan_type')
                 monto = serializer.data.get('loan_total')
+                date = serializer.data.get("loan_date")
                 usuario = Cuenta.objects.get(customer = usuario_id)
+                usr = Cliente.objects.get(customer_id= usuario_id)
+                movimiento = Movimientos(account_number = usr,amount =monto,reason =reason,date = date,status='Recibido',operation_type ='Prestamo')
+                movimiento.save()
                 usuario.balance = usuario.balance + monto
                 usuario.save()
 
