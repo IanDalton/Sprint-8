@@ -8,7 +8,7 @@ from .views import CuentaViewSet, DireccionViewSet, ClienteViewSet, AuditoriaCue
 router = DefaultRouter()
 router.register(r'cliente', ClienteViewSet,basename=Cliente) # Obtener datos de un cliente
 router.register(r'cuenta', CuentaViewSet,basename=Cuenta) # Obtener saldo de cuenta de un cliente
-router.register(r'prestamo', PrestamoViewSet,basename=Prestamo) # Obtener monto de un prestamo y total del prestamo
+router.register(r'prestamo', PrestamoViewSet,basename='prestamo') # Obtener monto de un prestamo y total del prestamo
 router.register(r'tarjeta', TarjetaViewSet,basename=Tarjeta)
 router.register(r'marcas_tarjeta', MarcasTarjetaViewSet,basename=MarcasTarjeta)
 router.register(r'auditoria_cuenta', AuditoriaCuentaViewSet,basename=AuditoriaCuenta)

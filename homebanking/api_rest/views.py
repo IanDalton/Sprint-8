@@ -1,4 +1,3 @@
-import re
 from rest_framework import viewsets
 from .serializers import TarjetaSerializer, MarcasTarjetaSerializer, CuentaSerializer, DireccionSerializer, ClienteSerializer, AuditoriaCuentaSerializer, SucursalSerializer, DireccionClienteSerializer, EmpleadoSerializer, MovimientosSerializer, TipoClienteSerializer, TipoCuentaSerializer, PrestamoSerializer
 from tarjetas.models import Tarjeta, MarcasTarjeta
@@ -41,7 +40,7 @@ class SucursalViewSet(viewsets.ModelViewSet):
     serializer_class = SucursalSerializer
 
     def get_queryset(self, *args, **kwargs):
-        datossucursal = Direccion.objects.all()
+        datossucursal = Sucursal.objects.all()
         return datossucursal
 
 class DireccionClienteViewSet(viewsets.ModelViewSet):
@@ -72,7 +71,7 @@ class PrestamoViewSet(viewsets.ModelViewSet):
         datosprestamo = Prestamo.objects.filter(customer_id = current_user.id,)
 
         return datosprestamo
-    
+
     def retrieve(self, request, *args, **kwargs):
         current_user = self.request.user
         if current_user.is_staff == True:
@@ -81,7 +80,7 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             serializer = PrestamoSerializer(prestamoquery, many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
-            return Response("El Usuario no posee los permisos para realizar esta consulta",status=status.HTTP_306_RESERVED)
+            return Response("El Usuario no posee los permisos para realizar esto",status=status.HTTP_306_RESERVED)
 
     def create(self, request, *args, **kwargs):
         current_user = self.request.user
@@ -99,10 +98,23 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("El Usuario no posee los permisos para realizar esta request",status=status.HTTP_306_RESERVED)
 
-    
+    def destroy(self, request, *args, **kwargs):
+        current_user = self.request.user
+        if current_user.is_staff == True:
+            parametro = kwargs
+            prestamoquery = Prestamo.objects.get(loan_id = parametro['pk']) #Busca el prestamo con el ID declarado en pk
+            serializer = PrestamoSerializer(prestamoquery) #Serializa la query
+            usuario_id = serializer.data.get('customer_id') #Toma el valor customer_id (id del usuario) del prestamo
+            monto = serializer.data.get('loan_total') #Toma el valor loan_total (monto) del prestamo
 
-        
+            usuario = Cuenta.objects.get(customer = usuario_id) #Busca la cuenta perteneciente al id del usuario 
+            usuario.balance = usuario.balance - monto #Accede al balance de la cuenta y resta el monto del prestamo que se cancela
+            usuario.save() #Guarda los cambios realizados en la cuenta
 
+            prestamoquery.delete() #Borra el prestamo
+            return Response("Prestamo anulado con exito",status=status.HTTP_200_OK)
+        else:
+            return Response("El Usuario no posee los permisos para realizar esta eliminacion",status=status.HTTP_306_RESERVED)
 
 class TarjetaViewSet(viewsets.ModelViewSet):
     serializer_class = TarjetaSerializer
