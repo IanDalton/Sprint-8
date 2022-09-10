@@ -32,6 +32,12 @@ class ClienteViewSet(viewsets.ModelViewSet):
         datoscliente = Cliente.objects.filter(customer_id=current_user.id)
         return datoscliente
 
+    def partial_update(self, request, *args, **kwargs):
+        parametro = kwargs
+        clientequery = Cliente.objects.get(customer_id = parametro['pk'])
+        serializer = ClienteSerializer(clientequery)
+        
+        return 
 class AuditoriaCuentaViewSet(viewsets.ModelViewSet):
     queryset = AuditoriaCuenta.objects.all()    
     serializer_class = AuditoriaCuentaSerializer

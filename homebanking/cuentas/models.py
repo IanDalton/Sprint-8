@@ -139,7 +139,9 @@ class Direccion(models.Model):
     address_city = models.TextField()
     address_country = models.TextField()
     address_type_required = models.ForeignKey(
-        'DireccionCliente', models.CASCADE, db_column='address_type_required', blank=True, null=True)
+        DireccionCliente, models.CASCADE, db_column='address_type_required', blank=True,null=True)
+    customer_id = models.ForeignKey(
+        Cliente, models.CASCADE, db_column='cliente_id', blank=True, null=True)
 
     class Meta:
         managed = True
